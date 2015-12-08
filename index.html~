@@ -10,7 +10,8 @@
     <div id ="juego">
     </div>
 
-
-     <script type="text/javascript" src="js/.."></script>
+     <script type="text/javascript" src="js/canvas.js"></script>
+     <script type="text/javascript" src="js/recursos.js"></script>
+     <script type="text/javascript" src="js/sprites.js"></script>
   </body>
 </html>
