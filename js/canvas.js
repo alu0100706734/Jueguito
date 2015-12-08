@@ -57,3 +57,23 @@ var terrainPattern;
 var score = 0;
 var scoreEl = document.getElementById('score');
 
+function update(dt) {
+    gameTime += dt;
+
+    handleInput(dt);
+    updateEntities(dt);
+
+    if(Math.random() < 1 - Math.pow(.993, gameTime)) {
+        enemies.push({
+            pos: [canvas.width,
+                  Math.random() * (canvas.height - 39)],
+            sprite: new Sprite('img/sprites.png', [0, 78], [80, 39],
+                               6, [0, 1, 2, 3, 2, 1])
+        });
+    }
+
+    checkCollisions();
+
+    scoreEl.innerHTML = score;
+};
+
