@@ -1,4 +1,4 @@
-var requfestAnimFrame = (function(){
+var requestAnimFrame = (function(){
     return window.requestAnimationFrame       ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame    ||
@@ -9,14 +9,14 @@ var requfestAnimFrame = (function(){
         };
 })();
 
-//creando lienzo
+// canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 480;
 document.body.appendChild(canvas);
 
-//
+// bucle principal
 var lastTime;
 function main() {
     var now = Date.now();
@@ -29,11 +29,10 @@ function main() {
     requestAnimFrame(main);
 };
 
-
 function init() {
-    terrainPattern = ctx.createPattern(resources.get('img/terreno.png'), 'repeat');
+    terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
 
-    document.getElementById('replay').addEventListener('click', function() {
+    document.getElementById('play-again').addEventListener('click', function() {
         reset();
     });
 
@@ -42,14 +41,13 @@ function init() {
     main();
 }
 
-
 resources.load([
     'img/sprites.png',
-    'img/terreno.png'
+    'img/terrain.png'
 ]);
 resources.onReady(init);
 
-
+// Game state
 var player = {
     pos: [0, 0],
     sprite: new Sprite('img/sprites.png', [0, 0], [39, 39], 16, [0, 1])
@@ -64,12 +62,11 @@ var gameTime = 0;
 var isGameOver;
 var terrainPattern;
 
-
 var score = 0;
 var scoreEl = document.getElementById('score');
 
 
-var playerSpeed = 200; //pixeles por segundo
+var playerSpeed = 200;  //pixeles por segundo
 var bulletSpeed = 500;
 var enemySpeed = 100;
 
@@ -93,7 +90,6 @@ function update(dt) {
 
     scoreEl.innerHTML = score;
 };
-
 
 function handleInput(dt) {
     if(input.isDown('DOWN') || input.isDown('s')) {
@@ -128,17 +124,14 @@ function handleInput(dt) {
                        dir: 'down',
                        sprite: new Sprite('img/sprites.png', [0, 60], [9, 5]) });
 
-
         lastFire = Date.now();
     }
 }
 
-
 function updateEntities(dt) {
-    // player
+   
     player.sprite.update(dt);
 
-    // balas
     for(var i=0; i<bullets.length; i++) {
         var bullet = bullets[i];
 
@@ -149,7 +142,6 @@ function updateEntities(dt) {
             bullet.pos[0] += bulletSpeed * dt;
         }
 
-        // eliminamos si sale de la pantalla
         if(bullet.pos[1] < 0 || bullet.pos[1] > canvas.height ||
            bullet.pos[0] > canvas.width) {
             bullets.splice(i, 1);
@@ -157,23 +149,21 @@ function updateEntities(dt) {
         }
     }
 
-    // enemigos
     for(var i=0; i<enemies.length; i++) {
         enemies[i].pos[0] -= enemySpeed * dt;
         enemies[i].sprite.update(dt);
 
-        // eliminamos si salede lapantalla
+	 //si se sale de pantalla
         if(enemies[i].pos[0] + enemies[i].sprite.size[0] < 0) {
             enemies.splice(i, 1);
             i--;
         }
     }
 
-    // explosiones
     for(var i=0; i<explosions.length; i++) {
         explosions[i].sprite.update(dt);
 
-        // eliminar al terminar ciclo
+
         if(explosions[i].sprite.done) {
             explosions.splice(i, 1);
             i--;
@@ -194,11 +184,9 @@ function boxCollides(pos, size, pos2, size2) {
                     pos2[0] + size2[0], pos2[1] + size2[1]);
 }
 
-
 function checkCollisions() {
     checkPlayerBounds();
-
-    // Run collision detection for all enemies and bullets
+    
     for(var i=0; i<enemies.length; i++) {
         var pos = enemies[i].pos;
         var size = enemies[i].sprite.size;
@@ -208,7 +196,7 @@ function checkCollisions() {
             var size2 = bullets[j].sprite.size;
 
             if(boxCollides(pos, size, pos2, size2)) {
-          
+
                 enemies.splice(i, 1);
                 i--;
 
@@ -236,8 +224,8 @@ function checkCollisions() {
     }
 }
 
-
 function checkPlayerBounds() {
+    // Check bounds
     if(player.pos[0] < 0) {
         player.pos[0] = 0;
     }
@@ -253,7 +241,7 @@ function checkPlayerBounds() {
     }
 }
 
-
+// renderizado
 function render() {
     ctx.fillStyle = terrainPattern;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -280,14 +268,14 @@ function renderEntity(entity) {
     ctx.restore();
 }
 
-
+// Game over
 function gameOver() {
     document.getElementById('game-over').style.display = 'block';
     document.getElementById('game-over-overlay').style.display = 'block';
     isGameOver = true;
 }
 
-
+// Restart
 function reset() {
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('game-over-overlay').style.display = 'none';
@@ -300,4 +288,3 @@ function reset() {
 
     player.pos = [50, canvas.height / 2];
 };
-

@@ -1,3 +1,4 @@
+
 (function() {
     var resourceCache = {};
     var loading = [];
@@ -52,7 +53,7 @@
         readyCallbacks.push(func);
     }
 
-    window.recursos = { 
+    window.resources = { 
         load: load,
         get: get,
         onReady: onReady,

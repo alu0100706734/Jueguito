@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-   <meta charset ="utf-8">
+    <meta charset="utf-8">
 
-	<title> Juegazo </title>
-	<link rel="stylesheet" href="css/estilo.css">
+    <title>Juegazo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="css/estilo.css">
   </head>
   <body>
-    <div id ="game-over-overlay">
+    <div id="game-over-overlay">
     </div>
 
     <div id="game-over">
-	<h1>Eres horrible, has perdido</h1>
-	<button id="replay">Volver a jugar </button>
+      <h1>Eres un matado. Has perdido</h1>
+      <button id="play-again">Jugar de nuevo</button>
     </div>
 
-   <div class="wrapper">
+    <div class="wrapper">
       <div id="instructions">
         <div>
-          Te puedes mover con<span class="key">las flechas</span> o con <span class="key">wasd</span>
+          Puedes moverte con <kbd class="light">W</kbd><kbd class="light">A</kbd><kbd class="light">S</kbd><kbd class="light">D</kbd> o con <kbd class="light">&uarr;</kbd><kbd class="light">&larr;</kbd><kbd class="light">&darr;</kbd><kbd class="light">&uarr;</kbd>
         </div>
         <div>
-          Dispara con <span class="key">espacio</span>
+          Para disparar usa <kbd class="light">Space</kbd>
         </div>
       </div>
 
       <div id="score"></div>
     </div>
 
-     <script type="text/javascript" src="js/canvas.js"></script>
-     <script type="text/javascript" src="js/recursos.js"></script>
-     <script type="text/javascript" src="js/sprite.js"></script>
-     <script type="text/javascript" src="js/entrada.js"></script>
+    <script type="text/javascript" src="js/recursos.js"></script>
+    <script type="text/javascript" src="js/entrada.js"></script>
+    <script type="text/javascript" src="js/sprite.js"></script>
+    <script type="text/javascript" src="js/canvas.js"></script>
   </body>
 </html>
