@@ -1,4 +1,4 @@
-var requestAnimFrame = (function(){
+var requfestAnimFrame = (function(){
     return window.requestAnimationFrame       ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame    ||
@@ -45,7 +45,7 @@ function init() {
 
 resources.load([
     'img/sprites.png',
-    'img/terrain.png'
+    'img/terreno.png'
 ]);
 resources.onReady(init);
 
@@ -208,14 +208,12 @@ function checkCollisions() {
             var size2 = bullets[j].sprite.size;
 
             if(boxCollides(pos, size, pos2, size2)) {
-                // Remove the enemy
+          
                 enemies.splice(i, 1);
                 i--;
 
-                // Add score
                 score += 100;
 
-                // Add an explosion
                 explosions.push({
                     pos: pos,
                     sprite: new Sprite('img/sprites.png',
@@ -227,7 +225,6 @@ function checkCollisions() {
                                        true)
                 });
 
-                // Remove the bullet and stop this iteration
                 bullets.splice(j, 1);
                 break;
             }
@@ -286,14 +283,14 @@ function renderEntity(entity) {
 
 function gameOver() {
     document.getElementById('game-over').style.display = 'block';
-    document.getElementById('juego').style.display = 'block';
+    document.getElementById('game-over-overlay').style.display = 'block';
     isGameOver = true;
 }
 
 
 function reset() {
     document.getElementById('game-over').style.display = 'none';
-    document.getElementById('juego').style.display = 'none';
+    document.getElementById('game-over-overlay').style.display = 'none';
     isGameOver = false;
     gameTime = 0;
     score = 0;

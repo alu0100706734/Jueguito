@@ -38,7 +38,7 @@ canvas {
     color: #aaffdd;
 }
 
-#game-over, #game-over-overlay {
+#game-over, #juego {
     margin: auto;
     width: 512px;
     height: 480px;
@@ -51,7 +51,7 @@ canvas {
     display: none;
 }
 
-#game-over-overlay {
+#juego {
     background-color: black;
     opacity: .5;
 }

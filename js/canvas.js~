@@ -1,3 +1,14 @@
+var requfestAnimFrame = (function(){
+    return window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        function(callback){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
 //creando lienzo
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -34,7 +45,7 @@ function init() {
 
 resources.load([
     'img/sprites.png',
-    'img/terrain.png'
+    'img/terreno.png'
 ]);
 resources.onReady(init);
 
@@ -197,14 +208,12 @@ function checkCollisions() {
             var size2 = bullets[j].sprite.size;
 
             if(boxCollides(pos, size, pos2, size2)) {
-                // Remove the enemy
+          
                 enemies.splice(i, 1);
                 i--;
 
-                // Add score
                 score += 100;
 
-                // Add an explosion
                 explosions.push({
                     pos: pos,
                     sprite: new Sprite('img/sprites.png',
@@ -216,7 +225,6 @@ function checkCollisions() {
                                        true)
                 });
 
-                // Remove the bullet and stop this iteration
                 bullets.splice(j, 1);
                 break;
             }
