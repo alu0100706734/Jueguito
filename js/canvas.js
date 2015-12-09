@@ -1,3 +1,14 @@
+var requestAnimFrame = (function(){
+    return window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        function(callback){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
 //creando lienzo
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -275,14 +286,14 @@ function renderEntity(entity) {
 
 function gameOver() {
     document.getElementById('game-over').style.display = 'block';
-    document.getElementById('game-over-overlay').style.display = 'block';
+    document.getElementById('juego').style.display = 'block';
     isGameOver = true;
 }
 
 
 function reset() {
     document.getElementById('game-over').style.display = 'none';
-    document.getElementById('game-over-overlay').style.display = 'none';
+    document.getElementById('juego').style.display = 'none';
     isGameOver = false;
     gameTime = 0;
     score = 0;
